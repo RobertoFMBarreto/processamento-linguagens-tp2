@@ -1,0 +1,964 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    for
+
+Grammar
+
+Rule 0     S' -> S
+Rule 1     S -> A
+Rule 2     S -> E
+Rule 3     S -> C
+Rule 4     C -> print E
+Rule 5     N -> nr
+Rule 6     N -> E + E
+Rule 7     N -> E - E
+Rule 8     N -> E * E
+Rule 9     N -> E / E
+Rule 10    B -> F
+Rule 11    B -> E or E
+Rule 12    B -> E and E
+Rule 13    B -> E xor E
+Rule 14    F -> true
+Rule 15    F -> false
+Rule 16    F -> not F
+Rule 17    F -> not var
+Rule 18    A -> var = B
+Rule 19    A -> var = N
+Rule 20    E -> N
+Rule 21    E -> B
+Rule 22    E -> var
+Rule 23    E -> ( E )
+
+Terminals, with rules where they appear
+
+(                    : 23
+)                    : 23
+*                    : 8
++                    : 6
+-                    : 7
+/                    : 9
+=                    : 18 19
+and                  : 12
+error                : 
+false                : 15
+for                  : 
+not                  : 16 17
+nr                   : 5
+or                   : 11
+print                : 4
+true                 : 14
+var                  : 17 18 19 22
+xor                  : 13
+
+Nonterminals, with rules where they appear
+
+A                    : 1
+B                    : 18 21
+C                    : 3
+E                    : 2 4 6 6 7 7 8 8 9 9 11 11 12 12 13 13 23
+F                    : 10 16
+N                    : 19 20
+S                    : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . S
+    (1) S -> . A
+    (2) S -> . E
+    (3) S -> . C
+    (18) A -> . var = B
+    (19) A -> . var = N
+    (20) E -> . N
+    (21) E -> . B
+    (22) E -> . var
+    (23) E -> . ( E )
+    (4) C -> . print E
+    (5) N -> . nr
+    (6) N -> . E + E
+    (7) N -> . E - E
+    (8) N -> . E * E
+    (9) N -> . E / E
+    (10) B -> . F
+    (11) B -> . E or E
+    (12) B -> . E and E
+    (13) B -> . E xor E
+    (14) F -> . true
+    (15) F -> . false
+    (16) F -> . not F
+    (17) F -> . not var
+
+    var             shift and go to state 5
+    (               shift and go to state 8
+    print           shift and go to state 9
+    nr              shift and go to state 10
+    true            shift and go to state 12
+    false           shift and go to state 13
+    not             shift and go to state 14
+
+    S                              shift and go to state 1
+    A                              shift and go to state 2
+    E                              shift and go to state 3
+    C                              shift and go to state 4
+    B                              shift and go to state 6
+    N                              shift and go to state 7
+    F                              shift and go to state 11
+
+state 1
+
+    (0) S' -> S .
+
+
+
+state 2
+
+    (1) S -> A .
+
+    $end            reduce using rule 1 (S -> A .)
+
+
+state 3
+
+    (2) S -> E .
+    (6) N -> E . + E
+    (7) N -> E . - E
+    (8) N -> E . * E
+    (9) N -> E . / E
+    (11) B -> E . or E
+    (12) B -> E . and E
+    (13) B -> E . xor E
+
+    $end            reduce using rule 2 (S -> E .)
+    +               shift and go to state 15
+    -               shift and go to state 16
+    *               shift and go to state 17
+    /               shift and go to state 18
+    or              shift and go to state 19
+    and             shift and go to state 20
+    xor             shift and go to state 21
+
+
+state 4
+
+    (3) S -> C .
+
+    $end            reduce using rule 3 (S -> C .)
+
+
+state 5
+
+    (18) A -> var . = B
+    (19) A -> var . = N
+    (22) E -> var .
+
+    =               shift and go to state 22
+    +               reduce using rule 22 (E -> var .)
+    -               reduce using rule 22 (E -> var .)
+    *               reduce using rule 22 (E -> var .)
+    /               reduce using rule 22 (E -> var .)
+    or              reduce using rule 22 (E -> var .)
+    and             reduce using rule 22 (E -> var .)
+    xor             reduce using rule 22 (E -> var .)
+    $end            reduce using rule 22 (E -> var .)
+
+
+state 6
+
+    (21) E -> B .
+
+    +               reduce using rule 21 (E -> B .)
+    -               reduce using rule 21 (E -> B .)
+    *               reduce using rule 21 (E -> B .)
+    /               reduce using rule 21 (E -> B .)
+    or              reduce using rule 21 (E -> B .)
+    and             reduce using rule 21 (E -> B .)
+    xor             reduce using rule 21 (E -> B .)
+    $end            reduce using rule 21 (E -> B .)
+    )               reduce using rule 21 (E -> B .)
+
+
+state 7
+
+    (20) E -> N .
+
+    +               reduce using rule 20 (E -> N .)
+    -               reduce using rule 20 (E -> N .)
+    *               reduce using rule 20 (E -> N .)
+    /               reduce using rule 20 (E -> N .)
+    or              reduce using rule 20 (E -> N .)
+    and             reduce using rule 20 (E -> N .)
+    xor             reduce using rule 20 (E -> N .)
+    $end            reduce using rule 20 (E -> N .)
+    )               reduce using rule 20 (E -> N .)
+
+
+state 8
+
+    (23) E -> ( . E )
+    (20) E -> . N
+    (21) E -> . B
+    (22) E -> . var
+    (23) E -> . ( E )
+    (5) N -> . nr
+    (6) N -> . E + E
+    (7) N -> . E - E
+    (8) N -> . E * E
+    (9) N -> . E / E
+    (10) B -> . F
+    (11) B -> . E or E
+    (12) B -> . E and E
+    (13) B -> . E xor E
+    (14) F -> . true
+    (15) F -> . false
+    (16) F -> . not F
+    (17) F -> . not var
+
+    var             shift and go to state 24
+    (               shift and go to state 8
+    nr              shift and go to state 10
+    true            shift and go to state 12
+    false           shift and go to state 13
+    not             shift and go to state 14
+
+    E                              shift and go to state 23
+    N                              shift and go to state 7
+    B                              shift and go to state 6
+    F                              shift and go to state 11
+
+state 9
+
+    (4) C -> print . E
+    (20) E -> . N
+    (21) E -> . B
+    (22) E -> . var
+    (23) E -> . ( E )
+    (5) N -> . nr
+    (6) N -> . E + E
+    (7) N -> . E - E
+    (8) N -> . E * E
+    (9) N -> . E / E
+    (10) B -> . F
+    (11) B -> . E or E
+    (12) B -> . E and E
+    (13) B -> . E xor E
+    (14) F -> . true
+    (15) F -> . false
+    (16) F -> . not F
+    (17) F -> . not var
+
+    var             shift and go to state 24
+    (               shift and go to state 8
+    nr              shift and go to state 10
+    true            shift and go to state 12
+    false           shift and go to state 13
+    not             shift and go to state 14
+
+    E                              shift and go to state 25
+    N                              shift and go to state 7
+    B                              shift and go to state 6
+    F                              shift and go to state 11
+
+state 10
+
+    (5) N -> nr .
+
+    +               reduce using rule 5 (N -> nr .)
+    -               reduce using rule 5 (N -> nr .)
+    *               reduce using rule 5 (N -> nr .)
+    /               reduce using rule 5 (N -> nr .)
+    or              reduce using rule 5 (N -> nr .)
+    and             reduce using rule 5 (N -> nr .)
+    xor             reduce using rule 5 (N -> nr .)
+    $end            reduce using rule 5 (N -> nr .)
+    )               reduce using rule 5 (N -> nr .)
+
+
+state 11
+
+    (10) B -> F .
+
+    +               reduce using rule 10 (B -> F .)
+    -               reduce using rule 10 (B -> F .)
+    *               reduce using rule 10 (B -> F .)
+    /               reduce using rule 10 (B -> F .)
+    or              reduce using rule 10 (B -> F .)
+    and             reduce using rule 10 (B -> F .)
+    xor             reduce using rule 10 (B -> F .)
+    $end            reduce using rule 10 (B -> F .)
+    )               reduce using rule 10 (B -> F .)
+
+
+state 12
+
+    (14) F -> true .
+
+    +               reduce using rule 14 (F -> true .)
+    -               reduce using rule 14 (F -> true .)
+    *               reduce using rule 14 (F -> true .)
+    /               reduce using rule 14 (F -> true .)
+    or              reduce using rule 14 (F -> true .)
+    and             reduce using rule 14 (F -> true .)
+    xor             reduce using rule 14 (F -> true .)
+    $end            reduce using rule 14 (F -> true .)
+    )               reduce using rule 14 (F -> true .)
+
+
+state 13
+
+    (15) F -> false .
+
+    +               reduce using rule 15 (F -> false .)
+    -               reduce using rule 15 (F -> false .)
+    *               reduce using rule 15 (F -> false .)
+    /               reduce using rule 15 (F -> false .)
+    or              reduce using rule 15 (F -> false .)
+    and             reduce using rule 15 (F -> false .)
+    xor             reduce using rule 15 (F -> false .)
+    $end            reduce using rule 15 (F -> false .)
+    )               reduce using rule 15 (F -> false .)
+
+
+state 14
+
+    (16) F -> not . F
+    (17) F -> not . var
+    (14) F -> . true
+    (15) F -> . false
+    (16) F -> . not F
+    (17) F -> . not var
+
+    var             shift and go to state 27
+    true            shift and go to state 12
+    false           shift and go to state 13
+    not             shift and go to state 14
+
+    F                              shift and go to state 26
+
+state 15
+
+    (6) N -> E + . E
+    (20) E -> . N
+    (21) E -> . B
+    (22) E -> . var
+    (23) E -> . ( E )
+    (5) N -> . nr
+    (6) N -> . E + E
+    (7) N -> . E - E
+    (8) N -> . E * E
+    (9) N -> . E / E
+    (10) B -> . F
+    (11) B -> . E or E
+    (12) B -> . E and E
+    (13) B -> . E xor E
+    (14) F -> . true
+    (15) F -> . false
+    (16) F -> . not F
+    (17) F -> . not var
+
+    var             shift and go to state 24
+    (               shift and go to state 8
+    nr              shift and go to state 10
+    true            shift and go to state 12
+    false           shift and go to state 13
+    not             shift and go to state 14
+
+    E                              shift and go to state 28
+    N                              shift and go to state 7
+    B                              shift and go to state 6
+    F                              shift and go to state 11
+
+state 16
+
+    (7) N -> E - . E
+    (20) E -> . N
+    (21) E -> . B
+    (22) E -> . var
+    (23) E -> . ( E )
+    (5) N -> . nr
+    (6) N -> . E + E
+    (7) N -> . E - E
+    (8) N -> . E * E
+    (9) N -> . E / E
+    (10) B -> . F
+    (11) B -> . E or E
+    (12) B -> . E and E
+    (13) B -> . E xor E
+    (14) F -> . true
+    (15) F -> . false
+    (16) F -> . not F
+    (17) F -> . not var
+
+    var             shift and go to state 24
+    (               shift and go to state 8
+    nr              shift and go to state 10
+    true            shift and go to state 12
+    false           shift and go to state 13
+    not             shift and go to state 14
+
+    E                              shift and go to state 29
+    N                              shift and go to state 7
+    B                              shift and go to state 6
+    F                              shift and go to state 11
+
+state 17
+
+    (8) N -> E * . E
+    (20) E -> . N
+    (21) E -> . B
+    (22) E -> . var
+    (23) E -> . ( E )
+    (5) N -> . nr
+    (6) N -> . E + E
+    (7) N -> . E - E
+    (8) N -> . E * E
+    (9) N -> . E / E
+    (10) B -> . F
+    (11) B -> . E or E
+    (12) B -> . E and E
+    (13) B -> . E xor E
+    (14) F -> . true
+    (15) F -> . false
+    (16) F -> . not F
+    (17) F -> . not var
+
+    var             shift and go to state 24
+    (               shift and go to state 8
+    nr              shift and go to state 10
+    true            shift and go to state 12
+    false           shift and go to state 13
+    not             shift and go to state 14
+
+    E                              shift and go to state 30
+    N                              shift and go to state 7
+    B                              shift and go to state 6
+    F                              shift and go to state 11
+
+state 18
+
+    (9) N -> E / . E
+    (20) E -> . N
+    (21) E -> . B
+    (22) E -> . var
+    (23) E -> . ( E )
+    (5) N -> . nr
+    (6) N -> . E + E
+    (7) N -> . E - E
+    (8) N -> . E * E
+    (9) N -> . E / E
+    (10) B -> . F
+    (11) B -> . E or E
+    (12) B -> . E and E
+    (13) B -> . E xor E
+    (14) F -> . true
+    (15) F -> . false
+    (16) F -> . not F
+    (17) F -> . not var
+
+    var             shift and go to state 24
+    (               shift and go to state 8
+    nr              shift and go to state 10
+    true            shift and go to state 12
+    false           shift and go to state 13
+    not             shift and go to state 14
+
+    E                              shift and go to state 31
+    N                              shift and go to state 7
+    B                              shift and go to state 6
+    F                              shift and go to state 11
+
+state 19
+
+    (11) B -> E or . E
+    (20) E -> . N
+    (21) E -> . B
+    (22) E -> . var
+    (23) E -> . ( E )
+    (5) N -> . nr
+    (6) N -> . E + E
+    (7) N -> . E - E
+    (8) N -> . E * E
+    (9) N -> . E / E
+    (10) B -> . F
+    (11) B -> . E or E
+    (12) B -> . E and E
+    (13) B -> . E xor E
+    (14) F -> . true
+    (15) F -> . false
+    (16) F -> . not F
+    (17) F -> . not var
+
+    var             shift and go to state 24
+    (               shift and go to state 8
+    nr              shift and go to state 10
+    true            shift and go to state 12
+    false           shift and go to state 13
+    not             shift and go to state 14
+
+    E                              shift and go to state 32
+    N                              shift and go to state 7
+    B                              shift and go to state 6
+    F                              shift and go to state 11
+
+state 20
+
+    (12) B -> E and . E
+    (20) E -> . N
+    (21) E -> . B
+    (22) E -> . var
+    (23) E -> . ( E )
+    (5) N -> . nr
+    (6) N -> . E + E
+    (7) N -> . E - E
+    (8) N -> . E * E
+    (9) N -> . E / E
+    (10) B -> . F
+    (11) B -> . E or E
+    (12) B -> . E and E
+    (13) B -> . E xor E
+    (14) F -> . true
+    (15) F -> . false
+    (16) F -> . not F
+    (17) F -> . not var
+
+    var             shift and go to state 24
+    (               shift and go to state 8
+    nr              shift and go to state 10
+    true            shift and go to state 12
+    false           shift and go to state 13
+    not             shift and go to state 14
+
+    E                              shift and go to state 33
+    N                              shift and go to state 7
+    B                              shift and go to state 6
+    F                              shift and go to state 11
+
+state 21
+
+    (13) B -> E xor . E
+    (20) E -> . N
+    (21) E -> . B
+    (22) E -> . var
+    (23) E -> . ( E )
+    (5) N -> . nr
+    (6) N -> . E + E
+    (7) N -> . E - E
+    (8) N -> . E * E
+    (9) N -> . E / E
+    (10) B -> . F
+    (11) B -> . E or E
+    (12) B -> . E and E
+    (13) B -> . E xor E
+    (14) F -> . true
+    (15) F -> . false
+    (16) F -> . not F
+    (17) F -> . not var
+
+    var             shift and go to state 24
+    (               shift and go to state 8
+    nr              shift and go to state 10
+    true            shift and go to state 12
+    false           shift and go to state 13
+    not             shift and go to state 14
+
+    E                              shift and go to state 34
+    N                              shift and go to state 7
+    B                              shift and go to state 6
+    F                              shift and go to state 11
+
+state 22
+
+    (18) A -> var = . B
+    (19) A -> var = . N
+    (10) B -> . F
+    (11) B -> . E or E
+    (12) B -> . E and E
+    (13) B -> . E xor E
+    (5) N -> . nr
+    (6) N -> . E + E
+    (7) N -> . E - E
+    (8) N -> . E * E
+    (9) N -> . E / E
+    (14) F -> . true
+    (15) F -> . false
+    (16) F -> . not F
+    (17) F -> . not var
+    (20) E -> . N
+    (21) E -> . B
+    (22) E -> . var
+    (23) E -> . ( E )
+
+    nr              shift and go to state 10
+    true            shift and go to state 12
+    false           shift and go to state 13
+    not             shift and go to state 14
+    var             shift and go to state 24
+    (               shift and go to state 8
+
+    B                              shift and go to state 35
+    N                              shift and go to state 36
+    F                              shift and go to state 11
+    E                              shift and go to state 37
+
+state 23
+
+    (23) E -> ( E . )
+    (6) N -> E . + E
+    (7) N -> E . - E
+    (8) N -> E . * E
+    (9) N -> E . / E
+    (11) B -> E . or E
+    (12) B -> E . and E
+    (13) B -> E . xor E
+
+    )               shift and go to state 38
+    +               shift and go to state 15
+    -               shift and go to state 16
+    *               shift and go to state 17
+    /               shift and go to state 18
+    or              shift and go to state 19
+    and             shift and go to state 20
+    xor             shift and go to state 21
+
+
+state 24
+
+    (22) E -> var .
+
+    )               reduce using rule 22 (E -> var .)
+    +               reduce using rule 22 (E -> var .)
+    -               reduce using rule 22 (E -> var .)
+    *               reduce using rule 22 (E -> var .)
+    /               reduce using rule 22 (E -> var .)
+    or              reduce using rule 22 (E -> var .)
+    and             reduce using rule 22 (E -> var .)
+    xor             reduce using rule 22 (E -> var .)
+    $end            reduce using rule 22 (E -> var .)
+
+
+state 25
+
+    (4) C -> print E .
+    (6) N -> E . + E
+    (7) N -> E . - E
+    (8) N -> E . * E
+    (9) N -> E . / E
+    (11) B -> E . or E
+    (12) B -> E . and E
+    (13) B -> E . xor E
+
+    $end            reduce using rule 4 (C -> print E .)
+    +               shift and go to state 15
+    -               shift and go to state 16
+    *               shift and go to state 17
+    /               shift and go to state 18
+    or              shift and go to state 19
+    and             shift and go to state 20
+    xor             shift and go to state 21
+
+
+state 26
+
+    (16) F -> not F .
+
+    +               reduce using rule 16 (F -> not F .)
+    -               reduce using rule 16 (F -> not F .)
+    *               reduce using rule 16 (F -> not F .)
+    /               reduce using rule 16 (F -> not F .)
+    or              reduce using rule 16 (F -> not F .)
+    and             reduce using rule 16 (F -> not F .)
+    xor             reduce using rule 16 (F -> not F .)
+    $end            reduce using rule 16 (F -> not F .)
+    )               reduce using rule 16 (F -> not F .)
+
+
+state 27
+
+    (17) F -> not var .
+
+    +               reduce using rule 17 (F -> not var .)
+    -               reduce using rule 17 (F -> not var .)
+    *               reduce using rule 17 (F -> not var .)
+    /               reduce using rule 17 (F -> not var .)
+    or              reduce using rule 17 (F -> not var .)
+    and             reduce using rule 17 (F -> not var .)
+    xor             reduce using rule 17 (F -> not var .)
+    $end            reduce using rule 17 (F -> not var .)
+    )               reduce using rule 17 (F -> not var .)
+
+
+state 28
+
+    (6) N -> E + E .
+    (6) N -> E . + E
+    (7) N -> E . - E
+    (8) N -> E . * E
+    (9) N -> E . / E
+    (11) B -> E . or E
+    (12) B -> E . and E
+    (13) B -> E . xor E
+
+    +               reduce using rule 6 (N -> E + E .)
+    -               reduce using rule 6 (N -> E + E .)
+    or              reduce using rule 6 (N -> E + E .)
+    and             reduce using rule 6 (N -> E + E .)
+    xor             reduce using rule 6 (N -> E + E .)
+    $end            reduce using rule 6 (N -> E + E .)
+    )               reduce using rule 6 (N -> E + E .)
+    *               shift and go to state 17
+    /               shift and go to state 18
+
+  ! *               [ reduce using rule 6 (N -> E + E .) ]
+  ! /               [ reduce using rule 6 (N -> E + E .) ]
+  ! +               [ shift and go to state 15 ]
+  ! -               [ shift and go to state 16 ]
+  ! or              [ shift and go to state 19 ]
+  ! and             [ shift and go to state 20 ]
+  ! xor             [ shift and go to state 21 ]
+
+
+state 29
+
+    (7) N -> E - E .
+    (6) N -> E . + E
+    (7) N -> E . - E
+    (8) N -> E . * E
+    (9) N -> E . / E
+    (11) B -> E . or E
+    (12) B -> E . and E
+    (13) B -> E . xor E
+
+    +               reduce using rule 7 (N -> E - E .)
+    -               reduce using rule 7 (N -> E - E .)
+    or              reduce using rule 7 (N -> E - E .)
+    and             reduce using rule 7 (N -> E - E .)
+    xor             reduce using rule 7 (N -> E - E .)
+    $end            reduce using rule 7 (N -> E - E .)
+    )               reduce using rule 7 (N -> E - E .)
+    *               shift and go to state 17
+    /               shift and go to state 18
+
+  ! *               [ reduce using rule 7 (N -> E - E .) ]
+  ! /               [ reduce using rule 7 (N -> E - E .) ]
+  ! +               [ shift and go to state 15 ]
+  ! -               [ shift and go to state 16 ]
+  ! or              [ shift and go to state 19 ]
+  ! and             [ shift and go to state 20 ]
+  ! xor             [ shift and go to state 21 ]
+
+
+state 30
+
+    (8) N -> E * E .
+    (6) N -> E . + E
+    (7) N -> E . - E
+    (8) N -> E . * E
+    (9) N -> E . / E
+    (11) B -> E . or E
+    (12) B -> E . and E
+    (13) B -> E . xor E
+
+    +               reduce using rule 8 (N -> E * E .)
+    -               reduce using rule 8 (N -> E * E .)
+    *               reduce using rule 8 (N -> E * E .)
+    /               reduce using rule 8 (N -> E * E .)
+    or              reduce using rule 8 (N -> E * E .)
+    and             reduce using rule 8 (N -> E * E .)
+    xor             reduce using rule 8 (N -> E * E .)
+    $end            reduce using rule 8 (N -> E * E .)
+    )               reduce using rule 8 (N -> E * E .)
+
+  ! +               [ shift and go to state 15 ]
+  ! -               [ shift and go to state 16 ]
+  ! *               [ shift and go to state 17 ]
+  ! /               [ shift and go to state 18 ]
+  ! or              [ shift and go to state 19 ]
+  ! and             [ shift and go to state 20 ]
+  ! xor             [ shift and go to state 21 ]
+
+
+state 31
+
+    (9) N -> E / E .
+    (6) N -> E . + E
+    (7) N -> E . - E
+    (8) N -> E . * E
+    (9) N -> E . / E
+    (11) B -> E . or E
+    (12) B -> E . and E
+    (13) B -> E . xor E
+
+    +               reduce using rule 9 (N -> E / E .)
+    -               reduce using rule 9 (N -> E / E .)
+    *               reduce using rule 9 (N -> E / E .)
+    /               reduce using rule 9 (N -> E / E .)
+    or              reduce using rule 9 (N -> E / E .)
+    and             reduce using rule 9 (N -> E / E .)
+    xor             reduce using rule 9 (N -> E / E .)
+    $end            reduce using rule 9 (N -> E / E .)
+    )               reduce using rule 9 (N -> E / E .)
+
+  ! +               [ shift and go to state 15 ]
+  ! -               [ shift and go to state 16 ]
+  ! *               [ shift and go to state 17 ]
+  ! /               [ shift and go to state 18 ]
+  ! or              [ shift and go to state 19 ]
+  ! and             [ shift and go to state 20 ]
+  ! xor             [ shift and go to state 21 ]
+
+
+state 32
+
+    (11) B -> E or E .
+    (6) N -> E . + E
+    (7) N -> E . - E
+    (8) N -> E . * E
+    (9) N -> E . / E
+    (11) B -> E . or E
+    (12) B -> E . and E
+    (13) B -> E . xor E
+
+    or              reduce using rule 11 (B -> E or E .)
+    xor             reduce using rule 11 (B -> E or E .)
+    $end            reduce using rule 11 (B -> E or E .)
+    )               reduce using rule 11 (B -> E or E .)
+    +               shift and go to state 15
+    -               shift and go to state 16
+    *               shift and go to state 17
+    /               shift and go to state 18
+    and             shift and go to state 20
+
+  ! +               [ reduce using rule 11 (B -> E or E .) ]
+  ! -               [ reduce using rule 11 (B -> E or E .) ]
+  ! *               [ reduce using rule 11 (B -> E or E .) ]
+  ! /               [ reduce using rule 11 (B -> E or E .) ]
+  ! and             [ reduce using rule 11 (B -> E or E .) ]
+  ! or              [ shift and go to state 19 ]
+  ! xor             [ shift and go to state 21 ]
+
+
+state 33
+
+    (12) B -> E and E .
+    (6) N -> E . + E
+    (7) N -> E . - E
+    (8) N -> E . * E
+    (9) N -> E . / E
+    (11) B -> E . or E
+    (12) B -> E . and E
+    (13) B -> E . xor E
+
+    or              reduce using rule 12 (B -> E and E .)
+    and             reduce using rule 12 (B -> E and E .)
+    xor             reduce using rule 12 (B -> E and E .)
+    $end            reduce using rule 12 (B -> E and E .)
+    )               reduce using rule 12 (B -> E and E .)
+    +               shift and go to state 15
+    -               shift and go to state 16
+    *               shift and go to state 17
+    /               shift and go to state 18
+
+  ! +               [ reduce using rule 12 (B -> E and E .) ]
+  ! -               [ reduce using rule 12 (B -> E and E .) ]
+  ! *               [ reduce using rule 12 (B -> E and E .) ]
+  ! /               [ reduce using rule 12 (B -> E and E .) ]
+  ! or              [ shift and go to state 19 ]
+  ! and             [ shift and go to state 20 ]
+  ! xor             [ shift and go to state 21 ]
+
+
+state 34
+
+    (13) B -> E xor E .
+    (6) N -> E . + E
+    (7) N -> E . - E
+    (8) N -> E . * E
+    (9) N -> E . / E
+    (11) B -> E . or E
+    (12) B -> E . and E
+    (13) B -> E . xor E
+
+    or              reduce using rule 13 (B -> E xor E .)
+    xor             reduce using rule 13 (B -> E xor E .)
+    $end            reduce using rule 13 (B -> E xor E .)
+    )               reduce using rule 13 (B -> E xor E .)
+    +               shift and go to state 15
+    -               shift and go to state 16
+    *               shift and go to state 17
+    /               shift and go to state 18
+    and             shift and go to state 20
+
+  ! +               [ reduce using rule 13 (B -> E xor E .) ]
+  ! -               [ reduce using rule 13 (B -> E xor E .) ]
+  ! *               [ reduce using rule 13 (B -> E xor E .) ]
+  ! /               [ reduce using rule 13 (B -> E xor E .) ]
+  ! and             [ reduce using rule 13 (B -> E xor E .) ]
+  ! or              [ shift and go to state 19 ]
+  ! xor             [ shift and go to state 21 ]
+
+
+state 35
+
+    (18) A -> var = B .
+    (21) E -> B .
+
+    $end            reduce using rule 18 (A -> var = B .)
+    or              reduce using rule 21 (E -> B .)
+    and             reduce using rule 21 (E -> B .)
+    xor             reduce using rule 21 (E -> B .)
+    +               reduce using rule 21 (E -> B .)
+    -               reduce using rule 21 (E -> B .)
+    *               reduce using rule 21 (E -> B .)
+    /               reduce using rule 21 (E -> B .)
+
+
+state 36
+
+    (19) A -> var = N .
+    (20) E -> N .
+
+    $end            reduce using rule 19 (A -> var = N .)
+    or              reduce using rule 20 (E -> N .)
+    and             reduce using rule 20 (E -> N .)
+    xor             reduce using rule 20 (E -> N .)
+    +               reduce using rule 20 (E -> N .)
+    -               reduce using rule 20 (E -> N .)
+    *               reduce using rule 20 (E -> N .)
+    /               reduce using rule 20 (E -> N .)
+
+
+state 37
+
+    (11) B -> E . or E
+    (12) B -> E . and E
+    (13) B -> E . xor E
+    (6) N -> E . + E
+    (7) N -> E . - E
+    (8) N -> E . * E
+    (9) N -> E . / E
+
+    or              shift and go to state 19
+    and             shift and go to state 20
+    xor             shift and go to state 21
+    +               shift and go to state 15
+    -               shift and go to state 16
+    *               shift and go to state 17
+    /               shift and go to state 18
+
+
+state 38
+
+    (23) E -> ( E ) .
+
+    +               reduce using rule 23 (E -> ( E ) .)
+    -               reduce using rule 23 (E -> ( E ) .)
+    *               reduce using rule 23 (E -> ( E ) .)
+    /               reduce using rule 23 (E -> ( E ) .)
+    or              reduce using rule 23 (E -> ( E ) .)
+    and             reduce using rule 23 (E -> ( E ) .)
+    xor             reduce using rule 23 (E -> ( E ) .)
+    $end            reduce using rule 23 (E -> ( E ) .)
+    )               reduce using rule 23 (E -> ( E ) .)
+
