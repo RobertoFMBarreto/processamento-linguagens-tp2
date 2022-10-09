@@ -5,13 +5,6 @@ import ply.yacc as pyacc
 
 class LogicGrammar:
 
-    precedence = (
-        ("left", "or", "xor"),
-        ("left", "and"),
-        ("left", "+", "-"),
-        ("left", "*", "/")
-    )
-
     def __init__(self):
         self.yacc = None
         self.lexer = None
@@ -27,67 +20,108 @@ class LogicGrammar:
         self.lexer.input(string)
         return self.yacc.parse(lexer=self.lexer.lexer)
 
+    def p_code0(self, p):
+        """ code : S ';'
+                 | S """
+        p[0] = [p[1]]
+
+    def p_code1(self, p):
+        """ code : code S ';' """
+        p[0] = p[1]
+        p[0].append(p[2])
+
     def p_s0(self, p):
-        """S : A
-             | E
-             | C"""
+        """ S : command
+              | sel_queries """
         p[0] = p[1]
 
-    def p_c(self, p):
-        """C : print E"""
-        p[0] = {'op': p[1], 'args': [p[2]]}
+    def p_command0(self, p):
+        """ command : PROCEDURE str DO code END """
+        p[0] = {'command': p[1], 'args': [{'str': p[2]}], 'code': p[4]}
 
-    def p_n1(self, p):
-        """N : nr """
+    def p_command1(self, p):
+        """ command : LOAD TABLE A FROM A
+              | CREATE TABLE A FROM A
+              | SAVE TABLE A AS A """
+        p[0] = {'command': p[1], 'args': [p[3], p[5]]}
+
+    def p_command2(self, p):
+        """ command : DISCARD TABLE A
+              | SHOW TABLE A """
+        p[0] = {'command': p[1], 'args': [p[3]]}
+
+    def p_command3(self, p):
+        """ command : CREATE TABLE A FROM sel_queries """
+        p[0] = {'command': p[1], 'args': [p[3], p[5]]}
+
+    def p_command4(self, p):
+        """ command : CREATE TABLE A FROM A JOIN J """
+        p[7].append(p[5])
+        p[0] = {'command': p[1], 'args': [p[3], {'join': p[7]}]}
+
+    def p_command5(self, p):
+        """ command : CALL str """
+        p[0] = {'command': 'CALL', 'args': [{'str': p[2]}]}
+
+    def p_command6(self, p):
+        """ command : CREATE TABLE A ATTRIBUTES a_list """
+        p[0] = {'command': p[1], 'args': [p[3], {'list': p[5]}]}
+
+    def p_command7(self, p):
+        """ command : INSERT a_list INTO A"""
+        p[0] = {'command': p[1], 'args': [{'list': p[2]}, p[4]]}
+
+    def p_sel_queries0(self, p):
+        """ sel_queries : SELECT a_list FROM A lim """
+        p[0] = {'command': p[1], 'args': [{'str': p[2]}, p[4]], 'lim': p[5]}
+
+    def p_sel_queries1(self, p):
+        """ sel_queries : SELECT a_list FROM A WHERE cond_list lim """
+        p[0] = {'command': p[1], 'args': [
+            {'str': p[2]}, p[4], {'list': p[6]}], 'lim': p[7]}
+
+    def p_a(self, p):
+        """ A : str
+              | nr
+              | string """
         p[0] = p[1]
-
-    def p_n2(self, p):
-        """N : E '+' E
-             | E '-' E
-             | E '*' E
-             | E '/' E """
-        p[0] = {"op": p[2], "args": [p[1], p[3]]}
-
-    def p_b1(self, p):
-        """ B : F """
-        p[0] = p[1]
-
-    def p_b2(self, p):
-        """ B : E or E
-              | E and E
-              | E xor E """
-        p[0] = {"op": p[2], "args": [p[1], p[3]]}
-
-    def p_f1(self, p):
-        """ F : true """
-        p[0] = True
-
-    def p_f2(self, p):
-        """ F : false """
-        p[0] = False
-
-    def p_f3(self, p):
-        """ F : not F
-              | not var """
-        p[0] = {"op": 'not', "args": [p[2]]}
-
-    def p_a1(self, p):
-        """A : var '=' B
-             | var '=' N"""
-        p[0] = {'op': 'attrib', 'args': [{'var': p[1]}, p[3]]}
 
     def p_e(self, p):
-        """E : N
-             | B
-             | var
-             | '(' E ')'"""
-        if len(p) == 2:
+        """ E : A comparator A """
+        p[0] = [p[1], p[2], p[3]]
+
+    def p_cond_list(self, p):
+        """ cond_list : E
+                      | cond_list AND E """
+        if len(p) == 4:
             p[0] = p[1]
+            p[0].append(p[3])
         else:
+            p[0] = [p[1]]
+
+    def p_lim(self, p):
+        """ lim :
+                | LIMIT nr"""
+        if len(p) == 3:
             p[0] = p[2]
+        else:
+            p[0] = ''
+
+    def p_a_list(self, p):
+        """ a_list : A
+                    | a_list ',' A """
+        if len(p) == 2:
+            p[0] = [p[1]]
+        else:
+            p[0] = p[1]
+            p[0].append(p[3])
+
+    def p_j(self, p):
+        """ J : A USING '(' A ')' """
+        p[0] = [p[1], p[4]]
 
     def p_error(self, p):
         if p:
-            raise Exception(f"Syntax error: unexpected '{p.type}'")
+            raise Exception(f"Syntax error: unexpected '{p.type}' -> {p}")
         else:
             raise Exception("Syntax error: unexpected end of file")

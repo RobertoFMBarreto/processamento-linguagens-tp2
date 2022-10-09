@@ -1,0 +1,4 @@
+-- carregar a tabela produtos do ficheiro produtos.csv
+LOAD TABLE produtos FROM "produtos.csv"
+-- selecionar a tabela produtos
+SELECT * FROM produtos ;
